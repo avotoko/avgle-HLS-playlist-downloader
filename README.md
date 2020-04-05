@@ -8,6 +8,6 @@ decrypts and downloads avgle HLS playlist in browser.
 5. You can play the video with streamlink.  
 streamlink --http-header Referer=https://avgle.com/ file://location/avgle.m3u8 best
 
-Outputs errors and other information to the console of the browser's developer tools.  
-Tested on firefox+ublock origin.  
+* Outputs errors and other information to the console of the browser's developer tools.  
+* Tested on firefox+ublock origin.  
 
