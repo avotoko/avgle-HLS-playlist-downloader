@@ -1,5 +1,6 @@
 # avgle HLS playlist downloader
 Decrypt and download HLS playlist(m3u8) of avgle.com video in browser.
+* Bookmarklet and usage is posted on my blog. https://avotoko.blogspot.com/2020/04/avgle-hls-playlist-downloader.html
 * Tested on firefox+ublock origin. 
 ### Usage ###
 1. Open the video page in browser.
