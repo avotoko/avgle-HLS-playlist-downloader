@@ -9,7 +9,9 @@ Decrypt and download HLS playlist(m3u8) of avgle.com video in browser.
 4. [Download HLS Playlist] button will appear when the playlist is successfully retrieved and decrypted.
 5. Click the button and download avgle.m3u8.
 5. You can play the video using Streamlink.  
-streamlink --http-header Referer=https://avgle.com/ file://location/avgle.m3u8 best
+`streamlink --http-header Referer=https://avgle.com/ file://location/avgle.m3u8 best`  
+Or you can download the video.  
+`streamlink --http-header Referer=https://avgle.com/ file://location/avgle.m3u8 best -o video.ts`  
 
 * Outputs errors and other information to the console of the browser's developer tools.  
 
