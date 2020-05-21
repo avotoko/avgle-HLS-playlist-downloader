@@ -14,7 +14,7 @@ Or you can download the video.
 `streamlink --http-header Referer=https://avgle.com/ file://<location>/avgle.m3u8 best -o video.ts`  
 **You must specify the url instead of the local path of m3u8 file.**  
 How to convert local path to url: https://en.wikipedia.org/wiki/File_URI_scheme  
-[Exsample for Windows]  
+[Example for Windows]  
 downloaded file path: c:\temp\avgle.m3u8  
 url: file:///c:/temp/avgle.m3u8  
 command line:  
