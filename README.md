@@ -12,15 +12,15 @@ Decrypt and download HLS playlist(m3u8) of avgle.com video in browser.
 `streamlink --http-header Referer=https://avgle.com/ file://<location>/avgle.m3u8 best`  
 Or you can download the video.  
 `streamlink --http-header Referer=https://avgle.com/ file://<location>/avgle.m3u8 best -o video.ts`  
-**i. You must specify the url instead of the local path of m3u8 file.**  
-How to convert local path to url: https://en.wikipedia.org/wiki/File_URI_scheme  
-[Example for Windows]  
-downloaded file path: c:\temp\avgle.m3u8  
-url: file:///c:/temp/avgle.m3u8  
-command line:  
-`streamlink --http-header referer=https://avgle.com/ file:///c:/temp/avgle.m3u8 best`  
-**ii. The url described in the playlist(m3u8 file) retrieved by AvgleHPD becomes invalid after a while.**  
-Try to run Streamlink as soon as possible after retrieving the playlist.  
+    * **You must specify the url instead of the local path of m3u8 file.**  
+  How to convert local path to url: https://en.wikipedia.org/wiki/File_URI_scheme  
+  [Example for Windows]  
+  &emsp;downloaded file path: c:\temp\avgle.m3u8  
+  &emsp;url: file:///c:/temp/avgle.m3u8  
+  &emsp;command line:  
+  &emsp;`streamlink --http-header referer=https://avgle.com/ file:///c:/temp/avgle.m3u8 best`  
+    * **The url described in the playlist(m3u8 file) retrieved by AvgleHPD becomes invalid after a while.**  
+  Try to run Streamlink as soon as possible after retrieving the playlist.  
 
 * Outputs errors and other information to the console of the browser's developer tools.  
 
