@@ -12,6 +12,8 @@ Decrypt and download HLS playlist(m3u8) of avgle.com video in browser.
 `streamlink --http-header Referer=https://avgle.com/ file://<location>/avgle.m3u8 best`  
 Or you can download the video.  
 `streamlink --http-header Referer=https://avgle.com/ file://<location>/avgle.m3u8 best -o video.ts`  
+    * **The url described in the playlist(m3u8 file) retrieved by AvgleHPD becomes inaccessible after a while.**  
+  Try to run Streamlink as soon as possible after retrieving the playlist.  
     * **You must specify the url instead of the local path of m3u8 file.**  
   How to convert local path to url: https://en.wikipedia.org/wiki/File_URI_scheme  
   [Example for Windows]  
@@ -19,8 +21,12 @@ Or you can download the video.
   &emsp;url: file:///c:/temp/avgle.m3u8  
   &emsp;command line:  
   &emsp;`streamlink --http-header referer=https://avgle.com/ file:///c:/temp/avgle.m3u8 best`  
-    * **The url described in the playlist(m3u8 file) retrieved by AvgleHPD becomes inaccessible after a while.**  
-  Try to run Streamlink as soon as possible after retrieving the playlist.  
+  [Convert local path to url using firefox on Windows]  
+      1. Open a new tab in firefox.
+      2. Drag and drop the m3u8 file to the new tab.
+      3. Text contents is displayed in the tab and file url is displayed in the address bar.
+      4. Focus the address bar and copy the url.
+      5. Paste the url where required.
 
 * Outputs errors and other information to the console of the browser's developer tools.  
 
