@@ -19,7 +19,7 @@ Or you can download the video.
   &emsp;url: file:///c:/temp/avgle.m3u8  
   &emsp;command line:  
   &emsp;`streamlink --http-header referer=https://avgle.com/ file:///c:/temp/avgle.m3u8 best`  
-    * **The url described in the playlist(m3u8 file) retrieved by AvgleHPD becomes invalid after a while.**  
+    * **The url described in the playlist(m3u8 file) retrieved by AvgleHPD becomes inaccessible after a while.**  
   Try to run Streamlink as soon as possible after retrieving the playlist.  
 
 * Outputs errors and other information to the console of the browser's developer tools.  
