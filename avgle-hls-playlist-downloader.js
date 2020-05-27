@@ -1,5 +1,5 @@
 // @name         avgle HLS playlist downloader
-// @version      0.1.0
+// @version      0.1.
 // @description  decrypts and downloads avgle HLS playlist in browser
 // @author       avotoko
 /*
@@ -100,7 +100,7 @@
 			throw new Error("videojs not defined");
 		let handle = addObjectMethodMonitor(Object, "defineProperty", function(obj, prop, descriptor){
 			if (prop === "responseText"){
-				handle.remove();
+				setTimeout(function(){handle.remove();},0);
 				log("got defineProperty(",prop,") call");
 				if (! (descriptor && descriptor.value))
 					throw new Error("responseText has no value");
