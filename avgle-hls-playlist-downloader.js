@@ -1,5 +1,5 @@
 // @name         avgle HLS playlist downloader
-// @version      0.1.
+// @version      0.1.1
 // @description  decrypts and downloads avgle HLS playlist in browser
 // @author       avotoko
 /*
@@ -7,7 +7,7 @@
 
 (function(){
 	"use strict";
-	let d = document, ver = "v.0.1.0";
+	let d = document, ver = "v.0.1.1";
 	
 	function info(msg)
 	{
