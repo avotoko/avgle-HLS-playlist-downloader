@@ -1,13 +1,11 @@
 // @name         avgle HLS playlist downloader
-// @version      0.1.1
+// @version      0.1.2
 // @description  decrypts and downloads avgle HLS playlist in browser
 // @author       avotoko
-/*
-*/
 
 (function(){
 	"use strict";
-	let d = document, ver = "v.0.1.1";
+	let d = document, ver = "v.0.1.2";
 	
 	function info(msg)
 	{
@@ -20,6 +18,12 @@
 		console.log.apply(console,["[avgleHPD]"].concat(Array.from(arguments)));
 	}
 	
+	function loginfo()
+	{
+		log.apply(console,arguments);
+		info.apply(console,arguments);
+	}
+	
 	function appendStylesheet(rules, id)
 	{
 		let e = d.createElement("style");
@@ -30,36 +34,33 @@
 		d.getElementsByTagName("head")[0].appendChild(e);
 	}
 	
-	function addObjectMethodMonitor(obj, name, monitor)
+	function downloadPlaylist(playlist, filename)
 	{
-		if (obj && typeof obj[name] === "function" && typeof monitor === "function"){
-			let original = "ahpd_original_" + name, monitors = "ahpd_"+name+"_monitors", id = Date.now();
-			if (! obj[original]){
-				obj[original] = obj[name];
-				obj[name] = function(){
-					Object.keys(obj[monitors]).forEach(k=>obj[monitors][k].apply(this, arguments));
-					return obj[original].apply(this, arguments);
-				};
-				obj[monitors] = {};
-			}
-			obj[monitors][id] = monitor;
-			return {
-				obj: obj,
-				original: original,
-				monitors: monitors,
-				id: id,
-				remove: function(){
-					delete obj[monitors][id];
-					if (Object.keys(obj[monitors]).length === 0){
-						obj[name] = obj[original];
-						delete obj[original];
-						delete obj[monitors];
-					}
-				}
-			};
-		}
+		let a = d.querySelector('.ahpd-download');
+		a.href = URL.createObjectURL(new Blob([playlist],{type:"application/x-mpegURL"}));
+		a.setAttribute("download",filename);
+		a.classList.remove("ahpd-hide");
 	}
-	
+
+	function isSegmentUriEncrypted(playlist)
+	{
+		let a = playlist.split('\n');
+		for (let i = 0 ; i < a.length ; i++){
+			if (/^\s*$/.test(a[i]))
+				continue;
+			if (a[i].charAt(0) === "#"){
+				let tag = a[i];
+				if (/^#EXT-X-ENDLIST/.test(tag))
+					break;
+				continue;
+			}
+			let uri = a[i];
+			if (uri.includes('!'))
+				return true;
+		}
+		return false;
+	}
+
 	function decryptPlaylist(playlist, options)
 	{
 		let a = playlist.split('\n');
@@ -86,45 +87,65 @@
 		return a.join('\n');
 	}
 	
-	function downloadPlaylist(playlist, filename)
-	{
-		let a = d.querySelector('.ahpd-download');
-		a.href = URL.createObjectURL(new Blob([playlist],{type:"application/x-mpegURL"}));
-		a.setAttribute("download",filename);
-		a.classList.remove("ahpd-hide");
-	}
-
 	function main()
 	{
 		if (! videojs)
 			throw new Error("videojs not defined");
-		let handle = addObjectMethodMonitor(Object, "defineProperty", function(obj, prop, descriptor){
-			if (prop === "responseText"){
-				setTimeout(function(){handle.remove();},0);
-				log("got defineProperty(",prop,") call");
-				if (! (descriptor && descriptor.value))
-					throw new Error("responseText has no value");
-				let responseText = descriptor.value;
-				log("responseText:\n"+responseText);
-				if (! responseText.includes('#EXTM3U'))
-					throw new Error("responseText must include '#EXTM3U'");
-				let options = videojs.Hls.xhr.beforeRequest({uri:"!dummy"});
-				if (typeof options.decryptURI !== "function")
-					throw new Error("can't retrieve decryptURI function");
-				log("decryptURI:\n",options.decryptURI.toString());
-				log("decrypting uri in playlist");
-				info("decrypting uri in playlist");
-				let playlist = decryptPlaylist(responseText, options);
-				log("decrypted playlist:\n"+ playlist);
-				info("decrypted playlist successfully");
-				downloadPlaylist(playlist, "avgle.m3u8"); // "avgle-"+video_id+".m3u8"
+		let prevBeforeRequest = videojs.Hls.xhr.beforeRequest;
+		function restoreBeforeRequest()
+		{
+			videojs.Hls.xhr.beforeRequest = prevBeforeRequest;
+			log("restored videojs.Hls.xhr.beforeRequest");
+		}
+		videojs.Hls.xhr.beforeRequest = function (options) {
+			log("beforeRequest:",options.uri);
+			if (/\/(video)?playback/.test(options.uri)) {
+				log("got target request:",options.uri);
+				setTimeout(function () {
+					log("hooking request callback");
+					info("wating http response");
+					let prevCallback = options.callback;
+					options.callback = function(error,request){
+						loginfo("got response");
+						if (request.rawRequest.response.includes('#EXTM3U')){
+							let playlist = request.rawRequest.response;
+							loginfo("got hls playlist");
+							if (isSegmentUriEncrypted(playlist)){
+								loginfo("segment uri is encrypted");
+								let newOptions = videojs.Hls.xhr.beforeRequest({uri:"!dummy"});
+								if (typeof newOptions.decryptURI !== "function")
+									throw new Error("can't retrieve decryptURI function");
+								log("decryptURI:\n",newOptions.decryptURI.toString());
+								loginfo("decrypting uri in playlist");
+								playlist = decryptPlaylist(playlist, newOptions);
+								log("decrypted playlist:\n"+ playlist);
+								info("decrypted playlist successfully");
+								downloadPlaylist(playlist, "avgle.m3u8");
+							}
+							else {
+								log("segment uri is not encrypted");
+								downloadPlaylist(playlist, "avgle.m3u8");
+							}
+						}
+						else {
+							loginfo("error: can't decrypt response!");
+							log("avgle-main-ah.js must already decrypt the response if the response is encrypted");
+						}
+						if (prevCallback)
+							prevCallback(error,request);
+					};
+				},0);
+				setTimeout(restoreBeforeRequest, 0);
 			}
-		});
-		log("hooked Object.defineProperty.\n  waiting defineProperty(obj,'responseText',desc) call");
-		info("Please click close button.");
+			return prevBeforeRequest(options);
+		};
+		log("hooked videojs.Hls.xhr.beforeRequest and waiting hls xhr request");
+		info("Please click the close button.");
 		d.querySelector("#player_3x2_container").addEventListener("click",()=>{
-			info("waiting defineProperty(obj,'responseText',desc) call");
+			info("waiting hls xhr request");
+			log("the close button clicked");
 		});
+		log("waiting for the close button to be clicked");
 	}
 	try {
 		if (d.querySelector(".ahpd-area")){
@@ -156,7 +177,6 @@
 		main();
 	}
 	catch(e){
-		log("error:",e.message);
-		info("error: "+e.message);
+		loginfo("error: " + e.message);
 	}
 })();
