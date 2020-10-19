@@ -2,7 +2,7 @@
 Decrypt and download HLS playlist(m3u8) of avgle.com video in browser.  
   
 **\[Oct. 19 2020]**  
-**uBlock Origin default filter is blocking the third party script on avgle.com.**  
+**uBlock Origin default filter is blocking the third party scripts on avgle.com.**  
 If necessary, please add the following filter to \[My Filters] to allow access to my script.  
 `@@||avotoko.github.io/avgle-HLS-playlist-downloader/avgle-hls-playlist-downloader.js$script,domain=avgle.com`  
 * Bookmarklet and usage is posted on my blog. https://avotoko.blogspot.com/2020/04/avgle-hls-playlist-downloader.html
