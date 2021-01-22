@@ -1,11 +1,11 @@
 // @name         avgle HLS playlist downloader
-// @version      0.1.2
+// @version      0.1.3
 // @description  decrypts and downloads avgle HLS playlist in browser
 // @author       avotoko
 
 (function(){
 	"use strict";
-	let d = document, ver = "v.0.1.2";
+	let d = document, ver = "v.0.1.3";
 	
 	function info(msg)
 	{
@@ -89,8 +89,17 @@
 	
 	function main()
 	{
-		if (! videojs)
+		if (! videojs){
 			throw new Error("videojs not defined");
+		}
+		window.md5 = new Proxy(window.md5, {
+			apply: function(target, thisArg, argumentsList) {
+				if (! argumentsList[0]){
+					argumentsList[0] = "avgle.com/templates/frontend/videojs-contrib-hls.js";
+				}
+				return Reflect.apply(target, thisArg, argumentsList);
+			}
+		});
 		let prevBeforeRequest = videojs.Hls.xhr.beforeRequest;
 		function restoreBeforeRequest()
 		{
