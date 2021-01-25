@@ -1,11 +1,11 @@
 // @name         avgle HLS playlist downloader
-// @version      0.1.6
+// @version      0.1.7
 // @description  decrypts and downloads avgle HLS playlist in browser
 // @author       avotoko
 
 (function(){
 	"use strict";
-	let d = document, ver = "v.0.1.6";
+	let d = document, ver = "v.0.1.7";
 	
 	function info(msg)
 	{
@@ -36,15 +36,12 @@
 	
 	function downloadPlaylist(playlist, filename)
 	{
-		let mime = "application/x-mpegURL";
 		if (typeof avglehpdPreDownload === "function"){
-			let r = avglehpdPreDownload({playlist, filename, mime});
-			playlist = (r && r.playlist) || playlist;
+			let r = avglehpdPreDownload({playlist});
 			filename = (r && r.filename) || filename;
-			mime = (r && r.mime) || mime;
 		}
 		let a = d.querySelector('.ahpd-download');
-		a.href = URL.createObjectURL(new Blob([playlist],{type: mime}));
+		a.href = URL.createObjectURL(new Blob([playlist],{type: "application/x-mpegURL"}));
 		a.setAttribute("download",filename);
 		a.classList.remove("ahpd-hide");
 	}
