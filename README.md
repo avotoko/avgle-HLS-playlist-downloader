@@ -35,5 +35,5 @@ Or you can download the video.
       5. Paste the url where required.
 
 * Outputs errors and other information to the console of the browser's developer tools.  
-
-
+### Advanced ###
+You can define the function `avglehpdPreDownload` separately to change the file name, content, and mime type to be downloaded.
