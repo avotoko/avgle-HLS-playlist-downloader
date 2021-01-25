@@ -36,4 +36,4 @@ Or you can download the video.
 
 * Outputs errors and other information to the console of the browser's developer tools.  
 ### Advanced ###
-You can define the function `avglehpdPreDownload` separately to change the file name, content, and mime type to be downloaded.
+You can define the function `avglehpdPreDownload` separately to change the file name to be downloaded.
