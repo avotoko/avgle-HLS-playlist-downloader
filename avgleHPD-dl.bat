@@ -4,8 +4,6 @@ if /%1/==// (
 	echo Please drag and drop the m3u8 file downloaded using avgleHPD onto this %~nx0 icon. 
 	goto :onexit
 )
-set dir=%~dp1%
-set name=%~n1%
 where powershell | find "powershell" > nul
 if not "%errorlevel%"=="0" (
 	echo Error: powershell not found.
@@ -16,10 +14,13 @@ if not "%errorlevel%"=="0" (
 	echo Error: streamlink not found.
 	goto :onexit
 )
-set url=%~dpnx1
-for /f "usebackq" %%a in (`powershell ^([system.uri]'%url%'^).AbsoluteUri`) do set url=%%a
+set dir=%~dp1%
+set name=%~n1%
 set TempName=avgle-%date:/=%-%time::=%
 set TempName=%TempName:.=%
+set TempPlaylistFile=%dir%%TempName%.m3u8
+copy %1 %TempPlaylistFile%
+for /f "usebackq" %%a in (`powershell ^([system.uri]'%TempPlaylistFile%'^).AbsoluteUri`) do set url=%%a
 set TempTsFile=%dir%%TempName%.ts
 set OutTsFile=%dir%%name%.ts
 echo on
@@ -40,8 +41,9 @@ if "%errorlevel%"=="0" (
 @echo off
 goto :onexit
 :onexit
+if exist "%TempPlaylistFile%" del "%TempPlaylistFile%"
 echo.
-echo %~nx0% v.0.1.0
+echo %~nx0% v.0.1.1
 set /p dummy="Hit [Enter] key to exit: "
 goto :eof
 
