@@ -25,12 +25,13 @@ set OutTsFile=%dir%%name%.ts
 echo on
 streamlink --http-header referer=https://avgle.com/ %url% best -o "%TempTsFile%"
 @echo off
+if not exist "%TempTsFile%" goto :onexit
 set TempMp4File=%dir%%TempName%.mp4
 set OutMp4File=%dir%%name%.mp4
 where ffmpeg | find "ffmpeg" > nul
 echo on
 if "%errorlevel%"=="0" (
-	ffmpeg -i "%TempTsFile%" -c copy "%TempMp4File%"
+	ffmpeg -hide_banner -i "%TempTsFile%" -c copy "%TempMp4File%"
 	move "%TempMp4File%" "%OutMp4File%"
 	if exist "%OutMp4File%" del "%TempTsFile%"
 ) else (
@@ -40,6 +41,7 @@ if "%errorlevel%"=="0" (
 goto :onexit
 :onexit
 echo.
+echo %~nx0% v.0.1.0
 set /p dummy="Hit [Enter] key to exit: "
 goto :eof
 
