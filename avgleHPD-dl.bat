@@ -28,8 +28,8 @@ streamlink --http-header referer=https://avgle.com/ %url% best -o "%TempTsFile%"
 set TempMp4File=%dir%%TempName%.mp4
 set OutMp4File=%dir%%name%.mp4
 where ffmpeg | find "ffmpeg" > nul
+echo on
 if "%errorlevel%"=="0" (
-	echo on
 	ffmpeg -i "%TempTsFile%" -c copy "%TempMp4File%"
 	move "%TempMp4File%" "%OutMp4File%"
 	if exist "%OutMp4File%" del "%TempTsFile%"
