@@ -19,7 +19,7 @@ set name=%~n1%
 set TempName=avgle-%date:/=%-%time::=%
 set TempName=%TempName:.=%
 set TempPlaylistFile=%dir%%TempName%.m3u8
-copy %1 %TempPlaylistFile%
+copy "%1" "%TempPlaylistFile%"
 for /f "usebackq" %%a in (`powershell ^([system.uri]'%TempPlaylistFile%'^).AbsoluteUri`) do set url=%%a
 set TempTsFile=%dir%%TempName%.ts
 set OutTsFile=%dir%%name%.ts
@@ -43,8 +43,7 @@ goto :onexit
 :onexit
 if exist "%TempPlaylistFile%" del "%TempPlaylistFile%"
 echo.
-echo %~nx0% v.0.1.1
+echo %~nx0% v.0.1.2
 set /p dummy="Hit [Enter] key to exit: "
 goto :eof
-
 
