@@ -2,7 +2,7 @@
 Decrypt and download HLS playlist(m3u8) of avgle.com video in browser.  
   
 **\[May 7 2021]**  
-**doesn't work in my environment. investigating.**  
+**In my case, currently doesn't work. investigating.**  
   
 **\[May 7 2021]**  
 **AdGuard Japanese filter prevents the CAPTCHA dialog from appearing on avgle.com, resulting in the video not playing.**  
