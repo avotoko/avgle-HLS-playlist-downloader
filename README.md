@@ -1,17 +1,17 @@
 # avgleHPD - avgle HLS playlist downloader
 Decrypt and download HLS playlist(m3u8) of avgle.com video in browser.  
   
-**\[May 7 2021]**  
+**\[May 7, 2021]**  
 It seems that there has been some change in the site.   
 Now the url of the first two segments of the playlist(m3u8) file returned by the video server is invalid.   
 So the video will not play in browser.  
   
-**\[May 7 2021]**  
+**\[May 7, 2021]**  
 **AdGuard Japanese filter prevents the CAPTCHA dialog from appearing on avgle.com, resulting in the video not playing.**  
 If necessary, please add the following filter to \[My Filters] to show CAPTCHA dialog.  
 `avgle.com#@#body > div[style*="z-index"]:not([id]):not([class])`  
   
-**\[Oct. 19 2020]**  
+**\[Oct. 19, 2020]**  
 **uBlock Origin default filter is blocking the third party scripts on avgle.com.**  
 If necessary, please add the following filter to \[My Filters] to allow access to my script.  
 `@@||avotoko.github.io/avgle-HLS-playlist-downloader/avgle-hls-playlist-downloader.js$script,domain=avgle.com`  
