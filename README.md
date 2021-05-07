@@ -3,8 +3,8 @@ Decrypt and download HLS playlist(m3u8) of avgle.com video in browser.
   
 **\[May 7 2021]**  
 It seems that there has been some change in the site.   
-Now the url of the first two segments of the playlist file returned by the video server is invalid.   
-This is why you cannot play the video in your browser.
+Now the url of the first two segments of the playlist(m3u8) file returned by the video server is invalid.   
+So the video will not play in browser.  
   
 **\[May 7 2021]**  
 **AdGuard Japanese filter prevents the CAPTCHA dialog from appearing on avgle.com, resulting in the video not playing.**  
