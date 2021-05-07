@@ -2,9 +2,13 @@
 Decrypt and download HLS playlist(m3u8) of avgle.com video in browser.  
   
 **\[May 7 2021]**  
+**doesn't work in my environment. investigating.**  
+  
+**\[May 7 2021]**  
 **AdGuard Japanese filter prevents the CAPTCHA dialog from appearing on avgle.com, resulting in the video not playing.**  
 If necessary, please add the following filter to \[My Filters] to show CAPTCHA dialog.  
 `avgle.com#@#body > div[style*="z-index"]:not([id]):not([class])`  
+  
 **\[Oct. 19 2020]**  
 **uBlock Origin default filter is blocking the third party scripts on avgle.com.**  
 If necessary, please add the following filter to \[My Filters] to allow access to my script.  
