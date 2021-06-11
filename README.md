@@ -37,12 +37,14 @@ Or you can download the video.
   &emsp;url: file:///c:/temp/avgle.m3u8  
   &emsp;command line:  
   &emsp;`streamlink --http-header referer=https://avgle.com/ file:///c:/temp/avgle.m3u8 best`  
+<!--
   [Convert local path to url using firefox on Windows]  
       1. Open a new tab in firefox.
       2. Drag and drop the m3u8 file to the new tab.
       3. Text contents is displayed in the tab and file url is displayed in the address bar.
       4. Focus the address bar and copy the url.
       5. Paste the url where required.
+-->
 
 * Outputs errors and other information to the console of the browser's developer tools.  
 ### Advanced ###
