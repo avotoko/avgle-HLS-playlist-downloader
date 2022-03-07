@@ -21,7 +21,7 @@ If necessary, please add the following filter to \[My Filters] to allow access t
 1. Open the video page in browser.
 2. Run avgle-hls-playlist-downloader.js (as bookmarklet.)  
 ref. [Run avgleHPD using Greasemonkey.](https://github.com/avotoko/avgle-HLS-playlist-downloader/issues/2)
-3. Click close button overlapping the video. In March 2022 uBO hides the close button. In that case, click paly button.
+3. Click close button overlapping the video. In March 2022 uBO hides the close button. In that case, click play button.
 4. [Download HLS Playlist] button will appear when the playlist is successfully retrieved and decrypted.
 5. Click the button and download avgle.m3u8.
 5. You can play the video using Streamlink.  
